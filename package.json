@@ -1,0 +1,30 @@
+{
+  "name": "fluxer-bot-ignis",
+  "version": "1.0.0",
+  "description": "\"A tool for textbased roleplaying games.\"",
+  "homepage": "https://github.com/YourKindAlly/fluxer-bot-ignis#readme",
+  "bugs": {
+    "url": "https://github.com/YourKindAlly/fluxer-bot-ignis/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/YourKindAlly/fluxer-bot-ignis.git"
+  },
+  "license": "MIT",
+  "author": "Jasmine Regnér",
+  "type": "module",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@fluxerjs/core": "^1.2.4",
+    "dotenv": "^17.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^6.0.2"
+  }
+}
