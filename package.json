@@ -17,14 +17,17 @@
   "scripts": {
     "build": "tsc",
     "start": "node build/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "dependencies": {
     "@fluxerjs/core": "^1.2.4",
     "dotenv": "^17.3.1"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/node": "^25.5.0",
-    "typescript": "^6.0.2"
+    "jest": "^30.3.0",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.9.3"
   }
 }
