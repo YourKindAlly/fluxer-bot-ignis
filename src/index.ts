@@ -1,6 +1,6 @@
-import { Client, Events } from '@fluxerjs/core';
-import type {Message} from '@fluxerjs/core';
-import * as dotenv from 'dotenv';
+import { Client, Events } from "@fluxerjs/core";
+import type { Message } from "@fluxerjs/core";
+import * as dotenv from "dotenv";
 
 dotenv.config();
 
@@ -13,13 +13,15 @@ client.on(Events.Ready, () => {
 
 /** Invoked when message is created in a community. */
 client.on(Events.MessageCreate, async (message: Message) => {
-  if (message.content === '!ping') await message.reply('Pong!');
+  if (message.content === "!ping") await message.reply("Pong!");
 });
 
 /** Logs in the client as long as a valid bot token is provided. */
 async function logInClient() {
   if (!process.env.BOT_TOKEN) {
-    console.log('There was an error fetching the bot token from env. BOT_TOKEN is empty.');
+    console.log(
+      "There was an error fetching the bot token from env. BOT_TOKEN is empty.",
+    );
     return;
   }
 

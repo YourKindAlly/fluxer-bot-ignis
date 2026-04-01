@@ -11,6 +11,7 @@
     "moduleResolution": "nodenext",
     "target": "es2022",
     "types": ["node", "jest"],
+    "esModuleInterop": true,
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -40,6 +41,9 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
+
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   },
-  "exclude": ["jest.config.ts", "build"]
+  "exclude": ["jest.config.ts", "build", "__tests__"]
 }
