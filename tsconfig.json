@@ -45,5 +45,5 @@
     "allowImportingTsExtensions": true,
     "noEmit": true
   },
-  "exclude": ["jest.config.ts", "build", "__tests__"]
+  "exclude": ["jest.config.ts", "build", "__mocks__"]
 }
