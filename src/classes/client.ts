@@ -1,4 +1,4 @@
-import { Client, Events } from "@fluxerjs/core";
+import { Client } from "@fluxerjs/core";
 
 export class IgnisClient {
   private client: Client;
@@ -13,12 +13,12 @@ export class IgnisClient {
     if (!this.token) {
       throw new Error("No token provided.");
     }
-
+    
     try {
       await this.client.login(this.token);
       return true;
     } catch (error) {
-      console.error("Login failed.");
+      console.error("Login failed: " + error);
       return false;
     }
   }

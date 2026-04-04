@@ -2,13 +2,12 @@ import type { Config } from "jest";
 
 const config: Config = {
   verbose: true,
-  transform: {
-    "^.+\\.tsx?$": ["ts-jest", { tsconfig: "tsconfig.json" }],
-  },
+  preset: 'ts-jest',
+  transform: { },
   transformIgnorePatterns: ["./node_modules/"],
   testEnvironment: "node",
   roots: ["./src"],
-  testMatch: ["**/__tests__/**/*", "**/?(*.)+(spec|test).ts"],
+  testMatch: ["**/test/**/*", "**/?(*.)+(spec|test).ts"],
   extensionsToTreatAsEsm: [".ts"],
 };
 
