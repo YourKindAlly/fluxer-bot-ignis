@@ -4,24 +4,47 @@ const mockClient = {
   login: jest.fn<(token: string) => Promise<string>>(),
   isReady: jest.fn(),
   destroy: jest.fn(),
+
+  on: jest.fn(),
+  _callbacks: new Map(),
+
+  _emit(event: string, ...args: any[]) {
+    const callback = this._callbacks.get(event);
+    if (callback) callback(...args);
+  },
+};
+
+const mockEvents = {
+  Ready: "ready",
+  MessageCreate: "messageCreate",
 };
 
 jest.mock("@fluxerjs/core", () => ({
   Client: jest.fn().mockImplementation((options) => mockClient),
+  Events: mockEvents,
 }));
+
+mockClient.on.mockImplementation((event, callback) => {
+  mockClient._callbacks.set(event, callback);
+});
 
 import { IgnisClient } from "../classes/client.ts";
 
 describe("IgnisClient", () => {
   let ignisClient: IgnisClient;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     mockClient.login.mockClear();
-    ignisClient = new IgnisClient("test-token");
-    (ignisClient as any).client = mockClient;
+    mockClient.isReady.mockClear();
+    mockClient.destroy.mockClear();
+
+    mockClient.on.mockClear();
+
+    ignisClient = new IgnisClient("test-token", mockClient as any);
+    await ignisClient.login();
   });
 
-  describe("login", () => {
+  describe("login method", () => {
     test("Should successfully login when token is provided.", async () => {
       mockClient.login.mockResolvedValue("fake-token");
       const result = await ignisClient.login();
@@ -50,7 +73,7 @@ describe("IgnisClient", () => {
     });
   });
 
-  describe("isReady", () => {
+  describe("isReady method", () => {
     test("Should return ready status.", () => {
       mockClient.isReady.mockReturnValue(true);
 
@@ -64,6 +87,26 @@ describe("IgnisClient", () => {
       await ignisClient.logout();
 
       expect(mockClient.destroy).toHaveBeenCalled();
+    });
+  });
+
+  describe("Ready event", () => {
+    test("Should invoke on event before login method.", () => {
+      const onCallOrder = mockClient.on.mock.invocationCallOrder[0];
+      const loginCallOrder = mockClient.login.mock.invocationCallOrder[0];
+
+      expect(onCallOrder).toBeDefined();
+      expect(loginCallOrder).toBeDefined();
+      expect(onCallOrder as number).toBeLessThan(loginCallOrder as number);
+    });
+
+    test("Should be called with the ready event.", () => {
+      const onReadySpy = jest.spyOn(IgnisClient.prototype, "onReady");
+      new IgnisClient("test-token", mockClient as any);
+
+      mockClient._emit(mockEvents.Ready);
+
+      expect(onReadySpy).toHaveBeenCalled();
     });
   });
 });
