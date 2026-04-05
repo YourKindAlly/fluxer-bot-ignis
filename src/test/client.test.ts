@@ -3,14 +3,13 @@ import { jest } from "@jest/globals";
 const mockClient = {
   login: jest.fn<(token: string) => Promise<string>>(),
   isReady: jest.fn(),
-  destroy: jest.fn()
-}
+  destroy: jest.fn(),
+};
 
 jest.mock("@fluxerjs/core", () => ({
-  Client: jest.fn().mockImplementation((options) => mockClient)
+  Client: jest.fn().mockImplementation((options) => mockClient),
 }));
 
-import { Client } from '@fluxerjs/core';
 import { IgnisClient } from "../classes/client.ts";
 
 describe("IgnisClient", () => {
