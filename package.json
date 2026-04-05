@@ -15,7 +15,7 @@
   "type": "module",
   "main": "build/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "rm -r ./build && tsc",
     "start": "node build/index.js",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },

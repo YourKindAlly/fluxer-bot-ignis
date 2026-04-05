@@ -28,7 +28,7 @@ mockClient.on.mockImplementation((event, callback) => {
   mockClient._callbacks.set(event, callback);
 });
 
-import { IgnisClient } from "../classes/client.ts";
+import { IgnisClient } from "@/classes/client.js";
 
 describe("IgnisClient", () => {
   let ignisClient: IgnisClient;
@@ -82,7 +82,7 @@ describe("IgnisClient", () => {
     });
   });
 
-  describe("logout", () => {
+  describe("logout method", () => {
     test("Should destroy the client.", async () => {
       await ignisClient.logout();
 
